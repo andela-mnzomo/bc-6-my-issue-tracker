@@ -32,4 +32,7 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .issues import issues as issues_blueprint
+    app.register_blueprint(issues_blueprint, url_prefix='/issues')
+
     return app
