@@ -1,12 +1,15 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, TextAreaField, SubmitField, StringField, PasswordField, BooleanField, validators
+from wtforms import TextField, TextAreaField, SubmitField, StringField, PasswordField, BooleanField, ValidationError, validators
 
 from ..models import db, User
 
 class SignupForm(Form):
   ''' Form for users to create new account '''
   firstname = TextField("First name",  [validators.Required("Please enter your first name.")])
-  lastname = TextField("Last name",  [validators.Required("Please enter your last name.")])
+  lastname = TextField("Last name",  [validators.Required("Please enter your last name."), 
+                                      validators.Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                                      'Usernames must have only letters, '
+                                      'numbers, dots or underscores')])
   username = TextField("Username",  [validators.Required("Please select a username.")])
   email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
   password = PasswordField('New Password', [
@@ -16,19 +19,13 @@ class SignupForm(Form):
   confirm = PasswordField('Confirm Password')
   submit = SubmitField("Create account")
  
-  def __init__(self, *args, **kwargs):
-    Form.__init__(self, *args, **kwargs)
- 
-  def validate(self):
-    if not Form.validate(self):
-      return False
-     
-    user = User.query.filter_by(email = self.email.data.lower()).first()
-    if user:
-      self.email.errors.append("That email is already taken.")
-      return False
-    else:
-      return True
+  def validate_email(self, field):
+    if User.query.filter_by(email=field.data).first():
+      raise ValidationError('Email already registered.')
+
+  def validate_username(self, field):
+    if User.query.filter_by(username=field.data).first():
+      raise ValidationError('Username already in use.')
 
 class LoginForm(Form):
   ''' Form for users to login '''
