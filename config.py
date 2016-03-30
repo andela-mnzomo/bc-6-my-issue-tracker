@@ -2,9 +2,13 @@
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+WTF_CSRF_ENABLED = True
+SECRET_KEY = "you-will-never-guess"
+
 class Config:
     ''' Common configurations '''
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    # WTF_CSRF_ENABLED = True
+    # SECRET_KEY = "you-will-never-guess"
 
     @staticmethod
     def init_app(app):
@@ -17,7 +21,7 @@ class DevelopmentConfig(Config):
     
     # Define database configurations
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
-        os.path.join(basedir, 'data-dev.sqlite')
+        os.path.join(BASE_DIR, 'data-dev.sqlite')
         
     # Enable protection agains *Cross-site Request Forgery (CSRF)*
     CSRF_ENABLED = True
@@ -29,7 +33,7 @@ class ProductionConfig(Config):
     
     # Define database configurations
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
-        os.path.join(basedir, 'data-dev.sqlite')
+        os.path.join(BASE_DIR, 'data-dev.sqlite')
         
     # Enable protection agains *Cross-site Request Forgery (CSRF)*
     CSRF_ENABLED = True
