@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
@@ -32,7 +32,15 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/departments')
+
     from .issues import issues as issues_blueprint
     app.register_blueprint(issues_blueprint, url_prefix='/issues')
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return render_template('404.html', title="404 Error"), 404
+
 
     return app
