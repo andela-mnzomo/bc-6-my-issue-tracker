@@ -6,6 +6,7 @@ from .. import db
 def home():
     return render_template('dashboard.html', title= "Dashboard")
 
+
 @main.errorhandler(404)
 def not_found(error):
     return render_template('404.html', title="404 Error"), 404
