@@ -56,17 +56,17 @@
       <ul class="mainnav">
         {% block nav_dashboard %}
         <li>
-          <a href="index.html"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
+          <a href="{{ url_for('main.home') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
         </li>
         {% endblock %}
-        {% block nav_add %}
+        {% block nav_raise %}
         <li>
-          <a href="#"><i class="icon-plus"></i><span>Add Issue</span></a> 
+          <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-plus"></i><span>Raise Issue</span></a> 
         </li>
         {% endblock %}
         {% block nav_view %}
         <li>
-          <a href="#"><i class="icon-list"></i><span>My Issues</span> </a>
+          <a href="{{ url_for('issues.view') }}"><i class="icon-list"></i><span>My Issues</span> </a>
         </li>
         {% endblock %}
         {% block nav_notifications %}
@@ -74,13 +74,18 @@
           <a href="#"><i class="icon-bell"></i><span>Notifications</span> </a> 
         </li>
         {% endblock %}
+        {% if current_user.is_admin == True %}
+        <li>
+          <a href="#"><i class="icon-star"></i><span>Departments</span> </a> 
+        </li>
+        {% endif %}
       </ul>
       {% endif %}
       <ul class="mainnav pull-right">
       {% if current_user.is_authenticated %} 
         {% block nav_logout %}
         <li>
-          <a href="#"><i class="icon-signout"></i><span>Logout</span> </a>
+          <a href="{{ url_for('auth.logout') }}"><i class="icon-signout"></i><span>Logout</span> </a>
         </li>
         {% endblock %}
       {% else %}
