@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% block nav_view %}
+<li class="active">
+  <a href="{{ url_for('issues.view') }}"><i class="icon-list"></i><span>My Issues</span> </a>
+</li>
+{% endblock %}
+
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <h2 class="bigstats" style="text-align:center">View Your Issues</h2>
+                  <div id="big_stats" class="cf">
+                    <div class="stat"> <i class="icon-exclamation"></i> <span class="value">30</span> 
+                    <br/> issues raised</div>
+                    <!-- .stat -->
+                    
+                    <div class="stat"> <i class="icon-check"></i> <span class="value">28</span>
+                    <br/> issues resolved</div>
+                    <!-- .stat -->
+                    
+                    <div class="stat"> <i class="icon-refresh"></i> <span class="value">2</span>
+                    <br/> issues in progress</div>
+                    <!-- .stat -->
+                    
+                    <div class="stat"> <i class="icon-bell"></i> <span class="value">3</span>
+                    <br/> notifications</div>
+                    <!-- .stat --> 
+                  </div>
+                </div>
+                <!-- /widget-content --> 
+                
+              </div>
+            </div>
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+{% endblock %}

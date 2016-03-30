@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+
+{% block nav_raise %}
+<li class="active">
+  <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-plus"></i><span>Raise Issue</span></a> 
+</li>
+{% endblock %}
+
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <h2 class="bigstats" style="text-align:center">Raise an Issue</h2>
+                  <div >
+                    
+                    {{ utils.flashed_messages() }}
+    
+                    {{ wtf.quick_form(form) }}
+                    
+                  </div>
+                </div>
+                <!-- /widget-content --> 
+                
+              </div>
+            </div>
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+{% endblock %}
