@@ -93,7 +93,7 @@ Bootstrap Admin Template by EGrappler.com
 }
 
 .stat-time .stat-value {
-	color: #F2AE03;
+	color: #40BFCE;
 	font-size: 40px;
 }
 
@@ -221,7 +221,7 @@ Bootstrap Admin Template by EGrappler.com
 	border-left: 1px solid #FFF;
 }
 #big_stats  i { font-size:30px; display:block; line-height: 40px; color:#b2afaa;}
-#big_stats .stat:hover i {color:#F2AE03;}
+#big_stats .stat:hover i {color:#40BFCE;}
 
 h6.bigstats{margin: 20px;
 border-bottom: 1px solid #eee;
