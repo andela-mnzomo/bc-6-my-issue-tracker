@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
 
 {% block nav_register %}
 <li class="active">
@@ -10,45 +12,12 @@
 <div class="account-container register">
 	
 	<div class="content clearfix">
-		
-		<form action="{{ url_for('auth.signup') }}" method="post">
 
 		<h1>{{ title }}</h1>
-
-			{{ form.hidden_tag() }}
-			
-			<div class="login-fields">
-				
-				<p>Create your free account:</p>
-				
-				First Name: {{ form.firstname }}
-			    <br>
-			    Last Name: {{ form.lastname }}
-			    <br>
-			    Username: {{ form.username }}
-			    <br>
-			    Email Address: {{ form.email(placeholder='yourname@email.com') }}
-			    <br>
-			    Password: {{ form.password }}
-			    <br>
-			    Confirm Password: {{ form.confirm }}
-			    <br>
-			    {{ form.csrf_token }}
-				
-			</div> <!-- /login-fields -->
-			
-			<div class="login-actions">
-				
-				<span class="login-checkbox">
-					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-					<label class="choice" for="Field">Agree with the Terms & Conditions.</label>
-				</span>
-									
-				<button class="button btn btn-primary btn-large">Register</button>
-				
-			</div> <!-- .actions -->
-			
-		</form>
+		
+		{{ utils.flashed_messages() }}
+		
+		{{ wtf.quick_form(form) }}
 		
 	</div> <!-- /content -->
 	
