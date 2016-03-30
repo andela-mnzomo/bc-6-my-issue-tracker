@@ -1,4 +1,4 @@
-Issue Tracker by Mbithe Nzomo :)
+Issue Tracker by Mbithe Nzomo
 
 This is my project for the Andela Nairobi Bootcamp 6. 
 
