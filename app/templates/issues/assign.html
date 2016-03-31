@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+
+<div class="main">
+  
+  <div class="main-inner">
+
+      <div class="container">
+  
+      <div class="row">
+      <div class="span12">
+            
+        <div class="widget widget-plain">
+          
+          <div class="widget-content">
+            
+            <a class="btn btn-large btn-primary btn-support-ask"> <i class="icon-arrow-right" style="margin-right: 10px"></i>{{ title }}</a> 
+            
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+        
+      </div> <!-- /span12 -->
+     </div> 
+    <div style="text-align: center">
+      <h3> You are about to assign the issue "{{ issue.subject }}" to a user.</h3>
+      <h3> Select a user below: </h3>
+      <br/>
+      <div>
+        <select>
+          {% for user in users %}
+          <option value="{{ user.fullname }}"> {{ user.fullname }} </option>
+          {% endfor %}
+        </select>
+      </div>
+      <a href="{{ url_for('issues.assigning', id=issue.id) }}"><button class="button btn btn-primary" style = "margin:0 auto; float: none; margin-top: 20px" >Assign</button><a>
+      <a href="{{ url_for('issues.admin_view') }}"><button class="button btn btn-primary" style = "margin:0 auto; float: none; margin-top: 20px" >Cancel </button><a>
+    </div>
+
+  </div> <!-- /widget -->
+
+</div> <!-- /spa12 -->
+
+</div> <!-- /row -->
+  
+      </div> <!-- /container -->
+    
+  </div> <!-- /main-inner -->
+      
+</div> <!-- /main -->
+{% endblock %}
