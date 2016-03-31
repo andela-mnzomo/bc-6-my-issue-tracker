@@ -77,6 +77,7 @@ class Issue(db.Model):
     raised_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_edited = db.Column(db.DateTime, default=datetime.utcnow)
     is_resolved = db.Column(db.Boolean, default=False)
+    is_assigned = db.Column(db.Boolean, default=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User',
@@ -89,3 +90,20 @@ class Issue(db.Model):
 
     def __repr__(self):
         return '<Issue Subject: %r>' % self.subject
+
+class AssignedUsers(db.Model):
+    ''' Table with users who have been assigned an issue '''
+
+    __tablename__ = 'assigned_users'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    assigned_user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    assigned_user = db.relationship('User',
+                           backref=db.backref('assigned_users',
+                                                    lazy='dynamic'))
+
+    issue_id = db.Column(db.Integer, db.ForeignKey('issues.id'))
+    issue = db.relationship('Issue',
+                                 backref=db.backref('issues',
+                                                    lazy='dynamic'))
