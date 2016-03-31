@@ -53,10 +53,10 @@
           <li {%- if request.path == "/dashboard" %} class="active" {% endif %}>
             <a href="{{ url_for('main.dashboard') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
           </li>
+          {% if current_user.is_admin == False %}
           <li {%- if request.path == "/notifications" %} class="active" {% endif %}>
             <a href="#"><i class="icon-bell"></i><span>Notifications</span> </a> 
           </li>
-          {% if current_user.is_admin == False %}
           <li {%- if request.path == "/issues/raise" %} class="active" {% endif %}>
             <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-exclamation"></i><span>Raise Issue</span></a>
           </li>
