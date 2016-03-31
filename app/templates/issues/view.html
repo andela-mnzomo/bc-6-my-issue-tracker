@@ -1,55 +1,81 @@
 {% extends "base.html" %}
 {% block content %}
-
-{% block nav_view %}
-<li class="active">
-  <a href="{{ url_for('issues.view') }}"><i class="icon-list"></i><span>My Issues</span> </a>
-</li>
-{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
 
 <div class="main">
+  
   <div class="main-inner">
-    <div class="container">
+
+      <div class="container">
+  
       <div class="row">
-        <div class="span12">
-          <div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div class="widget big-stats-container">
-                <div class="widget-content">
-                  <h2 class="bigstats" style="text-align:center">View Your Issues</h2>
-                  <div id="big_stats" class="cf">
-                    <div class="stat"> <i class="icon-exclamation"></i> <span class="value">30</span> 
-                    <br/> issues raised</div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-check"></i> <span class="value">28</span>
-                    <br/> issues resolved</div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-refresh"></i> <span class="value">2</span>
-                    <br/> issues in progress</div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-bell"></i> <span class="value">3</span>
-                    <br/> notifications</div>
-                    <!-- .stat --> 
-                  </div>
-                </div>
-                <!-- /widget-content --> 
-                
+      <div class="span12">
+            
+        <div class="widget widget-plain">
+          
+          <div class="widget-content">
+            
+            <a class="btn btn-large btn-primary btn-support-ask"> <i class="icon-list" style="margin-right: 10px"></i>{{ title }}</a> 
+            
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+        
+      </div> <!-- /span12 -->
+     </div> 
+            {% if issues %}
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th width="10%"> Date Raised </th>
+                    <th width="15%"> Subject </th>
+                    <th width="40%"> Description </th>
+                    <th width="10%"> Department </th>
+                    <th width="5%"> Priority </th>
+                    <th width="7%"> <i class="btn-icon-only icon-pencil"></i> Edit </th>
+                    <th width="8%"> <i class="btn-icon-only icon-remove"></i> Delete </th>
+                    <th width="5%"> Status </th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for issue in issues %}
+                  <tr>
+                    <td> {{ issue.raised_at.strftime('%d-%m-%Y') }} </td>
+                    <td> {{ issue.subject }} </td>
+                    <td> {{ issue.description }} </td>
+                    <td> {{ issue.department.name }} </td>
+                    <td> {{ issue.priority }} </td>
+                    <td> <a href="{{ url_for('issues.edit', id=issue.id) }}"> Edit </a></td>
+                    <td> <a href="{{ url_for('issues.delete', id=issue.id) }}"> Delete </i></a></td>
+                    <td class="td-actions">
+                      {% if issue.is_resolved == False %}
+                      <a class="btn btn-danger btn-small"><i class="btn-icon-only icon-exclamation"> </i></a>
+                      {% else %}
+                        <a class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"></i></a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <div style="text-align: center">
+                <h3> You have no issues. Click below to add one:</h3>
+                <a href="{{ url_for('issues.raise_issue') }}"><button class="button btn btn-primary" style = "margin:0 auto; float: none; margin-top: 20px" >Raise Issue</button><a>
               </div>
-            </div>
-          </div>
-          <!-- /widget -->
-        </div>
-        <!-- /span6 --> 
-      </div>
-      <!-- /row --> 
-    </div>
-    <!-- /container --> 
-  </div>
-  <!-- /main-inner --> 
-</div>
-<!-- /main -->
+              {% endif %}
+
+            </div> <!-- /widget -->
+        
+        </div> <!-- /spa12 -->
+
+        </div> <!-- /row -->
+  
+      </div> <!-- /container -->
+    
+  </div> <!-- /main-inner -->
+      
+</div> <!-- /main -->
 {% endblock %}
