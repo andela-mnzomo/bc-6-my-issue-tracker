@@ -3,45 +3,75 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/utils.html" as utils %}
 
-{% block nav_raise %}
-<li class="active">
-  <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-plus"></i><span>Raise Issue</span></a> 
-</li>
-{% endblock %}
-
 <div class="main">
+  
   <div class="main-inner">
-    <div class="container">
+
+      <div class="container">
+  
       <div class="row">
-        <div class="span12">
-          <div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div class="widget big-stats-container">
-                <div class="widget-content">
-                  <h2 class="bigstats" style="text-align:center">Raise an Issue</h2>
-                  <div >
-                    
-                    {{ utils.flashed_messages() }}
+      <div class="span12">
+            
+        <div class="widget widget-plain">
+          
+          <div class="widget-content">
+            
+            <a class="btn btn-large btn-primary btn-support-ask"> <i class="icon-exclamation" style="margin-right: 10px"></i> {{ title }}</a> 
+            
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+        
+      </div> <!-- /span12 -->
+         </div> 
     
-                    {{ wtf.quick_form(form) }}
+        <div class="row">
+          
+          <div class="span12">
+            
+            <div class="widget" style="width: 50%; margin:0 auto; margin-bottom: 50px">
+            
+                  <div class="widget-header">
+                    <i class="icon-exclamation"></i>
+                    <h3>Raise An Issue</h3>
+                  </div> <!-- /widget-header -->
+                  
+                  <div class="widget-content">
+
+                  {{ utils.flashed_messages() }}
+            
+                  {{ wtf.quick_form(form) }}
                     
-                  </div>
-                </div>
-                <!-- /widget-content --> 
+                  </div> <!-- /widget-content -->
+
+                  <div id="big_stats" class="cf">
+                    <div class="stat"> <i class="icon-exclamation"></i> <span class="value">30</span> 
+                    <br/> issues raised</div>
+                    <!-- .stat -->
+                    
+                    <div class="stat"> <i class="icon-check"></i> <span class="value">28</span>
+                    <br/> issues resolved</div>
+                    <!-- .stat -->
+                    
+                    <div class="stat"> <i class="icon-refresh"></i> <span class="value">2</span>
+                    <br/> issues in progress</div>
+                    <!-- .stat -->
+                    
+                    <div class="stat"> <i class="icon-bell"></i> <span class="value">3</span>
+                    <br/> notifications</div>
+                    <!-- .stat --> 
+                  </div> 
                 
-              </div>
-            </div>
-          </div>
-          <!-- /widget -->
-        </div>
-        <!-- /span6 --> 
-      </div>
-      <!-- /row --> 
-    </div>
-    <!-- /container --> 
-  </div>
-  <!-- /main-inner --> 
-</div>
-<!-- /main -->
+            </div> <!-- /widget -->
+        
+        </div> <!-- /spa12 -->
+
+        </div> <!-- /row -->
+  
+      </div> <!-- /container -->
+    
+  </div> <!-- /main-inner -->
+      
+</div> <!-- /main -->
 {% endblock %}
