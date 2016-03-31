@@ -9,12 +9,13 @@ from .. import db
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data,
+        user = User(fullname = form.fullname.data,
+                    email=form.email.data,
                     username=form.username.data,
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Welcome to Issues Tracker! You may now login.')
+        flash('You have successfully signed up! You may now login.')
         return redirect(url_for('auth.login'))
     return render_template('auth/signup.html', form=form, title="Sign Up")
 
@@ -25,8 +26,9 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
-            return redirect(request.args.get('next') or url_for('main.home'))
-        flash('Invalid username or password.')
+            return redirect(request.args.get('next') or url_for('main.dashboard'))
+        flash('Invalid email or password.')
+        return redirect(url_for('main.dashboard'))
     return render_template('auth/login.html', form=form, title="Login")
 
 
@@ -35,6 +37,6 @@ def login():
 def logout():
     logout_user()
     flash('You have successfully been logged out.')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('main.welcome'))
 
 
