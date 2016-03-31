@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+
+<div class="main">
+  
+  <div class="main-inner">
+
+      <div class="container">
+  
+      <div class="row">
+      <div class="span12">
+            
+        <div class="widget widget-plain">
+          
+          <div class="widget-content">
+            
+            <a class="btn btn-large btn-primary btn-support-ask"> <i class="icon-plus" style="margin-right: 10px"></i> {{ title }}</a> 
+            
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+        
+        
+        
+      </div> <!-- /span12 -->
+         </div> 
+    
+        <div class="row">
+          
+          <div class="span12">
+            
+            <div class="widget" style="width: 50%; margin:0 auto;">
+            
+              <div class="widget-header">
+                <i class="icon-plus"></i>
+                <h3>Add a Department</h3>
+              </div> <!-- /widget-header -->
+              
+              <div class="widget-content">
+
+              {{ utils.flashed_messages() }}
+        
+              {{ wtf.quick_form(form) }}
+                
+              </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget --> 
+        
+        </div> <!-- /spa12 -->
+
+        </div> <!-- /row -->
+  
+      </div> <!-- /container -->
+    
+  </div> <!-- /main-inner -->
+      
+</div> <!-- /main -->
+{% endblock %}
