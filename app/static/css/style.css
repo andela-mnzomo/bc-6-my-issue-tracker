@@ -10,11 +10,11 @@ Bootstrap Admin Template by EGrappler.com
 
 body {
 	background: #f9f6f1;
-	font: 13px/1.7em 'Open Sans';
+	font: 15px/1.7em 'Open Sans';
 }
     
 p { 
-	font: 13px/1.7em 'Open Sans'; 	
+	font: 15px/1.7em 'Open Sans'; 	
 }
     
 input,
@@ -252,8 +252,6 @@ textarea {
 
 .main {
 	padding-bottom: 2em;
-	
-	border-bottom: 1px solid #000;
 }
 
 
@@ -308,16 +306,19 @@ textarea {
 
 .footer {
 	margin-top: 0;
-	
+	position: absolute;
 	border-top: 1px solid #292929;
+	position: absolute;
+   	right: 0;
+  	bottom: 0;
+  	left: 0;
 }
 
 .footer-inner {
 	padding: 15px 0;
-	
 	font-size: 15px;
 	background: #E8E8E8;
-	color: #999;
+	color: #525252;
 }
 
 .footer a {

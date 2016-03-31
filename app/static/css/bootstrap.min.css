@@ -103,7 +103,7 @@ body {
 	background-color: #ffffff;
 }
 a {
-	color: #19bc9c;
+	color: #40BFCE;
 	text-decoration: none;
 }
 a:hover {
@@ -1875,15 +1875,15 @@ background-repeat:no-repeat;
   background-image: -moz-linear-gradient(rgba(33, 169, 236, 0), rgba(1, 9, 13, 0.1));
   background-image: -o-linear-gradient(rgba(33, 169, 236, 0), rgba(1, 9, 13, 0.1));
   background-image: linear-gradient(rgba(33, 169, 236, 0), rgba(1, 9, 13, 0.1));
-  background-color: #21a9ec;
-  border-color: #1399dc #1399dc #0d6895;
+  background-color: #40BFCE;
+  border-color: #40BFCE #40BFCE #0d6895;
   border-color: rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15);
   color: white;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
-  *background-color: #1399dc;
+  *background-color: #40BFCE;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
-	background-color: #1399dc;
+	background-color: #40BFCE;
   color: white;
   *background-color: #1189c4;
 }
@@ -2195,6 +2195,8 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 	background-color: #d9edf7;
 	border-color: #bce8f1;
 	color: #3a87ad;
+	width: 200px;
+    margin-left: 30px;
 }
 .alert-block {
 	padding-top: 14px;
