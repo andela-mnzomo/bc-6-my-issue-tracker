@@ -1,6 +1,6 @@
 ## Issue Tracker
 
-__Issue Tracker__ is a web application written in Python using [Flask](http://flask.pocoo.org/ Flask's Homepage) for the Andela Kenya Class VI Bootcamp project. The application is a simple way to keep track of issues raised by people within an organization.
+__Issue Tracker__ is a web application written in Python using [Flask](http://flask.pocoo.org/ Flask's Homepage) for the [Andela](http://andela.co/ Andela Homepage) Kenya Class VI Bootcamp project. The application is a simple way to keep track of issues raised by people within an organization.
 
 ## Main Features
 
@@ -35,7 +35,7 @@ To install the app:
 `git clone https://github.com/mbithe/bc-6-my-issue-tracker`
 
 2. Install requirements
-`pip install -r req.txt`
+`pip install -r requirements.txt`
 
 3. Run the server
 `python manage.py runserver`
@@ -56,5 +56,6 @@ Admin users can also add `departments`, which are the departments to which issue
 
 The following recommendations would improve the application:
 
-- User profiles, with profile pictures and brief biographies for each user
+- Email confirmation as part of the registration process
+- User profiles: capabality for users to add or edit their password, email address, profile picture, and biography
 - Pushing of notifications as a popup rather than rendering them in a list on the notifications page
