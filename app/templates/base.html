@@ -18,10 +18,7 @@
 <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='css/pages/dashboard.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='css/pages/signin.css') }}" rel="stylesheet">
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<link href="{{ url_for('static', filename='css/pages/faq.css') }}" rel="stylesheet">
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -33,7 +30,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               {% if current_user.is_authenticated %} 
-                <i class="icon-user"></i>  Hi, {{ current_user.username }}! 
+                <i class="icon-user"></i>  Hi, {{ current_user.fullname }}! 
               {% else %}
                 Welcome to Issue Tracker!
               {% endif %}
@@ -51,57 +48,49 @@
 <div class="subnavbar">
   <div class="subnavbar-inner">
     <div class="container">
-      {% block nav %}
       {% if current_user.is_authenticated %} 
-      <ul class="mainnav">
-        {% block nav_dashboard %}
-        <li>
-          <a href="{{ url_for('main.home') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
-        </li>
-        {% endblock %}
-        {% block nav_raise %}
-        <li>
-          <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-plus"></i><span>Raise Issue</span></a> 
-        </li>
-        {% endblock %}
-        {% block nav_view %}
-        <li>
-          <a href="{{ url_for('issues.view') }}"><i class="icon-list"></i><span>My Issues</span> </a>
-        </li>
-        {% endblock %}
-        {% block nav_notifications %}
-        <li>
-          <a href="#"><i class="icon-bell"></i><span>Notifications</span> </a> 
-        </li>
-        {% endblock %}
-        {% if current_user.is_admin == True %}
-        <li>
-          <a href="#"><i class="icon-star"></i><span>Departments</span> </a> 
-        </li>
-        {% endif %}
-      </ul>
+        <ul class="mainnav">
+          <li {%- if request.path == "/dashboard" %} class="active" {% endif %}>
+            <a href="{{ url_for('main.dashboard') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
+          </li>
+          <li {%- if request.path == "/notifications" %} class="active" {% endif %}>
+            <a href="#"><i class="icon-bell"></i><span>Notifications</span> </a> 
+          </li>
+          {% if current_user.is_admin == False %}
+          <li {%- if request.path == "/issues/raise" %} class="active" {% endif %}>
+            <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-exclamation"></i><span>Raise Issue</span></a>
+          </li>
+          <li {%- if request.path == "/issues/view" %} class="active" {% endif %}>
+            <a href="{{ url_for('issues.view') }}"><i class="icon-list"></i><span>My Issues</span> </a>
+          </li>
+          {% endif %}
+          {% if current_user.is_admin == True %}
+          <li {%- if request.path == "/issues/admin/view" %} class="active" {% endif %}>
+            <a href="{{ url_for('issues.admin_view') }}"><i class="icon-list"></i><span>Issues Raised</span> </a>
+          </li>
+          <li {%- if request.path == "/departments/add" %} class="active" {% endif %}>
+            <a href="{{ url_for('admin.add') }}"><i class="icon-plus"></i><span>Add Department</span> </a> 
+          </li>
+          <li {%- if request.path == "/departments/view" %} class="active" {% endif %}>
+            <a href="{{ url_for('admin.view') }}"><i class="icon-star-empty"></i><span>View Departments</span> </a> 
+          </li>
+          {% endif %}
+        </ul>
       {% endif %}
       <ul class="mainnav pull-right">
-      {% if current_user.is_authenticated %} 
-        {% block nav_logout %}
+      {% if current_user.is_authenticated %}
         <li>
           <a href="{{ url_for('auth.logout') }}"><i class="icon-signout"></i><span>Logout</span> </a>
         </li>
-        {% endblock %}
       {% else %}
-        {% block nav_login %}
-        <li>
+        <li {%- if request.path == "/login" %} class="active" {% endif %}>
           <a href="{{ url_for('auth.login') }}"><i class="icon-signin"></i><span>Login</span> </a> 
         </li>
-        {% endblock %}
-        {% block nav_register %}
-        <li>
+        <li {%- if request.path == "/signup" %} class="active" {% endif %}>
           <a href="{{ url_for('auth.signup') }}"><i class="icon-user"></i><span>Register</span> </a>
         </li>
-        {% endblock %}
       {% endif %}  
       </ul>
-      {% endblock %}
     </div>
     <!-- /container --> 
   </div>
@@ -110,150 +99,19 @@
 <!-- /subnavbar -->
 {% block content %}
 {% endblock %}
-<div class="footer">
+<!-- <div class="footer">
   <div class="footer-inner">
     <div class="container">
       <div class="row">
-        <div class="span12"> &copy; 2016 <a href="http://www.mbithenzomo.com/">Mbithe Nzomo</a> | Andela Bootcamp VI. </div>
-        <!-- /span12 --> 
+        <div class="span12"> &copy; 2016 <a href="http://www.mbithenzomo.com/">Mbithe Nzomo</a> | Andela Bootcamp VI </div>
+        <!-- /span12 
       </div>
-      <!-- /row --> 
+      <!-- /row
     </div>
-    <!-- /container --> 
+    <!-- /container 
   </div>
-  <!-- /footer-inner --> 
+  <!-- /footer-inner  
 </div>
-<!-- /footer --> 
-<!-- Le javascript
-================================================== --> 
-<!-- Placed at the end of the document so the pages load faster --> 
-<script src="js/jquery-1.7.2.min.js"></script> 
-<script src="js/excanvas.min.js"></script> 
-<script src="js/chart.min.js" type="text/javascript"></script> 
-<script src="js/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.min.js"></script>
- 
-<script src="js/base.js"></script> 
-<script>     
-
-        var lineChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-        {
-            fillColor: "rgba(220,220,220,0.5)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            data: [65, 59, 90, 81, 56, 55, 40]
-        },
-        {
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            data: [28, 48, 40, 19, 96, 27, 100]
-        }
-      ]
-
-        }
-
-        var myLine = new Chart(document.getElementById("area-chart").getContext("2d")).Line(lineChartData);
-
-
-        var barChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-        {
-            fillColor: "rgba(220,220,220,0.5)",
-            strokeColor: "rgba(220,220,220,1)",
-            data: [65, 59, 90, 81, 56, 55, 40]
-        },
-        {
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 96, 27, 100]
-        }
-      ]
-
-        }    
-
-        $(document).ready(function() {
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-        var calendar = $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },
-          selectable: true,
-          selectHelper: true,
-          select: function(start, end, allDay) {
-            var title = prompt('Event Title:');
-            if (title) {
-              calendar.fullCalendar('renderEvent',
-                {
-                  title: title,
-                  start: start,
-                  end: end,
-                  allDay: allDay
-                },
-                true // make the event "stick"
-              );
-            }
-            calendar.fullCalendar('unselect');
-          },
-          editable: true,
-          events: [
-            {
-              title: 'All Day Event',
-              start: new Date(y, m, 1)
-            },
-            {
-              title: 'Long Event',
-              start: new Date(y, m, d+5),
-              end: new Date(y, m, d+7)
-            },
-            {
-              id: 999,
-              title: 'Repeating Event',
-              start: new Date(y, m, d-3, 16, 0),
-              allDay: false
-            },
-            {
-              id: 999,
-              title: 'Repeating Event',
-              start: new Date(y, m, d+4, 16, 0),
-              allDay: false
-            },
-            {
-              title: 'Meeting',
-              start: new Date(y, m, d, 10, 30),
-              allDay: false
-            },
-            {
-              title: 'Lunch',
-              start: new Date(y, m, d, 12, 0),
-              end: new Date(y, m, d, 14, 0),
-              allDay: false
-            },
-            {
-              title: 'Birthday Party',
-              start: new Date(y, m, d+1, 19, 0),
-              end: new Date(y, m, d+1, 22, 30),
-              allDay: false
-            },
-            {
-              title: 'EGrappler.com',
-              start: new Date(y, m, 28),
-              end: new Date(y, m, 29),
-              url: 'http://EGrappler.com/'
-            }
-          ]
-        });
-      });
-    </script><!-- /Calendar -->
+<!-- /footer -->  
 </body>
 </html>
