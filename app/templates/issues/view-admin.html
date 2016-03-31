@@ -31,11 +31,12 @@
                   <tr>
                     <th width="10%"> Date Raised </th>
                     <th width="12%"> Person </th>
-                    <th width="15%"> Subject </th>
+                    <th width="10%"> Subject </th>
                     <th width="28%"> Description </th>
                     <th width="10%"> Department </th>
                     <th width="5%"> Priority </th>
-                    <th width="15%"> Resolution </th>
+                    <th width="10%"> Assign </th>
+                    <th width="10%"> Resolve </th>
                     <th width="5%"> Status </th>
                   </tr>
                 </thead>
@@ -49,6 +50,17 @@
                     <td> {{ issue.department.name }} </td>
                     <td> {{ issue.priority }} </td>
                     <td>
+                      {% if issue.is_assigned == True and issue.is_resolved == True %}
+                        Archived 
+                      {% elif issue.is_assigned == True and issue.is_resolved == False %}
+                        Assigned
+                      {% elif issue.is_assigned == False and issue.is_resolved == False %}
+                        <a href="{{ url_for('issues.assign', id=issue.id) }}"> Assign </a>
+                      {% elif issue.is_assigned == False and issue.is_resolved == True %}
+                        Archived
+                      {% endif %}
+                    </td>
+                    <td>
                       {% if issue.is_resolved == False %}
                       <a href="{{ url_for('issues.resolve', id=issue.id) }}"> Resolve </a>
                       {% else %}
@@ -56,10 +68,17 @@
                       {% endif %}
                     </td>
                     <td class="td-actions">
-                      {% if issue.is_resolved == False %}
-                      <a class="btn btn-danger btn-small" style="width:10px"><i class="btn-icon-only icon-exclamation"> </i></a>
-                      {% else %}
-                        <a class="btn btn-success btn-small" style="width:10px"><i class="btn-icon-only icon-ok"></i></a>
+                      {% if issue.is_assigned == True and issue.is_resolved == True %}
+                        <a class="btn btn-success btn-small" style="width:10px">
+                        <i class="btn-icon-only icon-ok"></i></a> 
+                      {% elif issue.is_assigned == True and issue.is_resolved == False %}
+                        <a class="btn btn-orange btn-small" style="width:10px">
+                        <i class="btn-icon-only icon-refresh"></i></a>
+                      {% elif issue.is_assigned == False and issue.is_resolved == False %}
+                        <a class="btn btn-danger btn-small" style="width:10px"><i class="btn-icon-only icon-exclamation"> </i></a>
+                      {% elif issue.is_assigned == False and issue.is_resolved == True %}
+                        <a class="btn btn-success btn-small" style="width:10px">
+                        <i class="btn-icon-only icon-ok"></i></a>
                       {% endif %}
                     </td>
                   </tr>
@@ -68,8 +87,8 @@
               </table>
               {% else %}
               <div style="text-align: center">
-                <h3> You have no issues. Click below to add one:</h3>
-                <a href="{{ url_for('issues.raise_issue') }}"><button class="button btn btn-primary" style = "margin:0 auto; float: none; margin-top: 20px" >Raise Issue</button><a>
+                <h3> No issues have been raised yet. 
+                </br> Isn't that great? :) </h3>
               </div>
               {% endif %}
 

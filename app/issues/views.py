@@ -65,7 +65,6 @@ def deleting(id):
 	issue = Issue.query.get_or_404(id)
 	db.session.delete(issue)
 	db.session.commit()
-	flash('Your issue has been deleted.')
 	return redirect(url_for('issues.view'))
 	return render_template('issues/delete.html', issue=issue)
 
@@ -90,6 +89,48 @@ def resolving(id):
 	issue.is_resolved=True
 	db.session.add(issue)
 	db.session.commit()
-	flash('Your issue has been resolved.')
 	return redirect(url_for('issues.admin_view'))
 	return render_template('issues/resolve.html', issue=issue)
+
+# @issues.route('/admin/rassign/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def assign(id):
+# 	issue = Issue.query.get_or_404(id)
+# 	if current_user.is_admin == False:
+# 		abort(403)
+# 	return render_template('issues/assign.html', issue=issue, title="Assign Issue")
+
+@issues.route('/admin/assigning/<int:id>', methods=['GET', 'POST'])
+@login_required
+def assigning(id):
+	issue = Issue.query.get_or_404(id)
+	issue.is_assigned=True
+	db.session.add(issue)
+	db.session.commit()
+	return redirect(url_for('issues.admin_view'))
+	return render_template('issues/assign.html', issue=issue)
+
+@issues.route('/admin/assign/<int:id>', methods=['GET', 'POST'])
+@login_required
+def assign(id):
+	issue = Issue.query.get_or_404(id)
+	users = User.query.all()
+	# form = IssueForm()
+	# if form.validate_on_submit():
+	# 	issue = Issue(assigned_user=form.assigned_user.data)
+	# 	issue.is_assigned=True
+	# 	db.session.add(issue, assignment)
+	# 	db.session.commit()
+	# 	flash('You have successfully added a new department.')
+	return render_template('issues/assign.html', issue=issue, users=users, title="Assign Issue")
+
+@issues.context_processor
+def counts():
+    issue_count = Issue.query.filter(Issue.user_id == current_user.id).count()
+    resolved_issues = (Issue.query
+		.filter(Issue.user_id == current_user.id)
+		.filter(Issue.is_resolved == True)
+		).count()
+
+    return dict(issue_count=issue_count, resolved_issues=resolved_issues)
+	

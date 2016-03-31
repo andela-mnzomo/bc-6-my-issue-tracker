@@ -31,6 +31,29 @@
           <div class="span12">
             
             <div class="widget" style="width: 50%; margin:0 auto; margin-bottom: 50px">
+
+              <div id="big_stats" class="cf" style="margin-bottom: 50px">
+                <div class="stat"> <i class="icon-exclamation"></i> <span class="value">{{ issue_count }}</span> 
+                <br/> issues raised</div>
+                <!-- .stat -->
+                
+                <div class="stat"> <i class="icon-check"></i> <span class="value">{{ resolved_issues }}</span>
+                {% if resolved_issues == 1 %}
+                  <br/> issue resolved</div>
+                {% else %}
+                  <br/> issues resolved</div>
+                {% endif %}
+
+                <!-- .stat -->
+                
+                <div class="stat"> <i class="icon-refresh"></i> <span class="value">2</span>
+                <br/> issues in progress</div>
+                <!-- .stat -->
+                
+                <div class="stat"> <i class="icon-bell"></i> <span class="value">3</span>
+                <br/> notifications</div>
+                <!-- .stat --> 
+              </div> 
             
                   <div class="widget-header">
                     <i class="icon-exclamation"></i>
@@ -44,24 +67,6 @@
                   {{ wtf.quick_form(form) }}
                     
                   </div> <!-- /widget-content -->
-
-                  <div id="big_stats" class="cf">
-                    <div class="stat"> <i class="icon-exclamation"></i> <span class="value">30</span> 
-                    <br/> issues raised</div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-check"></i> <span class="value">28</span>
-                    <br/> issues resolved</div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-refresh"></i> <span class="value">2</span>
-                    <br/> issues in progress</div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-bell"></i> <span class="value">3</span>
-                    <br/> notifications</div>
-                    <!-- .stat --> 
-                  </div> 
                 
             </div> <!-- /widget -->
         

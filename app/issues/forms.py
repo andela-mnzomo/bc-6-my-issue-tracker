@@ -19,13 +19,22 @@ class IssueForm(Form):
                                   message='Please describe your issue.')])
   priority = SelectField('Priority', choices=[
       ('high', 'High'), ('medium', 'Medium'), ('low', 'Low')])
+
   department = SelectField('Department',
                            [validators.Required(
                                message='Department required.')],
                            coerce=int)
+
+  # assigned_user = SelectField('User',
+  #                          [validators.Required(
+  #                              message='You must assign the issue to a person.')],
+  #                          coerce=int)
+
   submit = SubmitField('Submit')
 
   def __init__(self, *args, **kwargs):
       super(IssueForm, self).__init__(*args, **kwargs)
       self.department.choices = [
           (dept.id, dept.name) for dept in Department.query.all()]
+      # self.assigned_user.choices = [
+      #     (assigned_user.id, assigned_user.fullname) for user in User.query.all()]
