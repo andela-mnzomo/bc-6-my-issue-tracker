@@ -23,7 +23,7 @@ class IssueForm(Form):
                            [validators.Required(
                                message='Department required.')],
                            coerce=int)
-  submit = SubmitField('Post Issue')
+  submit = SubmitField('Submit')
 
   def __init__(self, *args, **kwargs):
       super(IssueForm, self).__init__(*args, **kwargs)
