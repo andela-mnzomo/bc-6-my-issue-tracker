@@ -24,7 +24,10 @@ def raise_issue():
 @issues.route('/view')
 @login_required
 def view():
-	issues = Issue.query.filter(Issue.user_id == current_user.id).all()
+	issues = (Issue.query
+		.filter(Issue.user_id == current_user.id)
+		.order_by(Issue.raised_at.desc())
+		).all()
 	return render_template('issues/view.html', issues=issues, title="My Issues")
 
 @issues.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -69,6 +72,5 @@ def deleting(id):
 @issues.route('/admin/view')
 @login_required
 def admin_view():
-	# issues = Issue.query.filter(Issue.user_id == current_user.id).all()
-	issues = Issue.query.all()
+	issues = Issue.query.order_by(Issue.raised_at.desc()).all()
 	return render_template('issues/view-admin.html', issues=issues, title="Issues Raised")
