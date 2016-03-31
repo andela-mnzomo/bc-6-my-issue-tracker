@@ -29,10 +29,13 @@
             <div class="widget" >
                     
                   <h2 class="bigstats" style="text-align:center; margin-top:50px; margin-bottom:100px; color:#40BFCE">Welcome to Issue Tracker, where your issues are on track.</h2>
-
                   <div style="text-align: center">
+                  {% if current_user.is_authenticated %}
+                    <h3> Click on one of the links on the menu above to get started!</h3>
+                  {% else %}
                     <h3> You need to login or register a new account to use Issue Tracker.
                     <br/> Click on one of the links on the menu above to get started!</h3>
+                  {% endif %}
                   </div>
                 
             </div> <!-- /widget -->
