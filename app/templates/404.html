@@ -1,8 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-<div>
+<div class="container">
+	
+	<div class="row">
+		
+		<div class="span12">
+			
+			<div class="error-container">
+				<h1 style="color: #40BFCE">404</h1>
+				
+				<h2>Sorry, an error has occured!</h2>
+				
+				<div class="error-details">
 
-  <h1>404 Error</h1> 
-  
-</div>
+					The resource you were looking for could not be found.
+					
+				</div> <!-- /error-details -->
+				
+				<div class="error-actions">
+					<a href="{{ url_for('main.dashboard') }}" class="btn btn-large btn-primary">
+						<i class="icon-chevron-left"></i>
+						&nbsp;
+						Back to Dashboard						
+					</a>
+					
+					
+					
+				</div> <!-- /error-actions -->
+							
+			</div> <!-- /error-container -->			
+			
+		</div> <!-- /span12 -->
+		
+	</div> <!-- /row -->
+	
+</div> <!-- /container -->
 {% endblock %}
