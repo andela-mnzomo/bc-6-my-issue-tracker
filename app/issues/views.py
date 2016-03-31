@@ -74,3 +74,22 @@ def deleting(id):
 def admin_view():
 	issues = Issue.query.order_by(Issue.raised_at.desc()).all()
 	return render_template('issues/view-admin.html', issues=issues, title="Issues Raised")
+
+@issues.route('/admin/resolve/<int:id>', methods=['GET', 'POST'])
+@login_required
+def resolve(id):
+	issue = Issue.query.get_or_404(id)
+	if current_user.is_admin == False:
+		abort(403)
+	return render_template('issues/resolve.html', issue=issue, title="Resolve Issue")
+
+@issues.route('/admin/resolving/<int:id>', methods=['GET', 'POST'])
+@login_required
+def resolving(id):
+	issue = Issue.query.get_or_404(id)
+	issue.is_resolved=True
+	db.session.add(issue)
+	db.session.commit()
+	flash('Your issue has been resolved.')
+	return redirect(url_for('issues.admin_view'))
+	return render_template('issues/resolve.html', issue=issue)
