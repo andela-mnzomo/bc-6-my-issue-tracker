@@ -3,8 +3,6 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from config import config
-import sys
-import logging
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -23,9 +21,6 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
-
-    app.logger.addHandler(logging.StreamHandler(sys.stdout))
-    app.logger.setLevel(logging.ERROR)
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
