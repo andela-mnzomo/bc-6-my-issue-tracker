@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 import os
 from app import create_app, db
-from app.models import User
+from app.models import *
 from flask.ext.script import Manager, Shell
-from flask.ext.migrate import Migrate, MigrateCommand
+# from flask.ext.migrate import Migrate, MigrateCommand
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 
 def make_shell_context():
@@ -15,11 +15,11 @@ def make_shell_context():
     to the shell importing them automatically
     on `python manager.py shell`.
     '''
-    return dict(app=app, db=db, User=User)
+    return dict(app=app, db=db, User=User, Department=Department, Comment = Comment, Issue = Issue)
 
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
-manager.add_command('db', MigrateCommand)
+# manager.add_command('db', MigrateCommand)
 
 
 if __name__ == '__main__':
