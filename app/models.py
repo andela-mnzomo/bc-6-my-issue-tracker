@@ -2,21 +2,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.login import UserMixin
 from . import db
 from . import login_manager
-
-class Role(db.Model):
-    ''' Creates user role '''
-
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(15), unique=True)
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return '<User %r>' % self.name
-
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     ''' Creates user '''
@@ -24,16 +10,11 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(50))
-    last_name = db.Column(db.String(50))
+    fullname = db.Column(db.String(50))
     username = db.Column(db.String(50), unique=True, index=True)
     email = db.Column(db.String(100), unique=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
-
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    role = db.relationship('Role',
-                           backref=db.backref('users', lazy='dynamic'))
 
 
     @property
@@ -55,7 +36,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User Full Name: %r>' % self.fullname
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -79,8 +60,9 @@ class Department(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True)
-    dept_head = db.Column(db.Integer)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    dept_admin = db.relationship('User',
+                                backref=db.backref('users', lazy='dynamic'))
 
 
 class Issue(db.Model):
@@ -92,7 +74,9 @@ class Issue(db.Model):
     subject = db.Column(db.String(70))
     description = db.Column(db.Text)
     priority = db.Column(db.String(10))
-    closed = db.Column(db.Boolean, default=False)
+    raised_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_edited = db.Column(db.DateTime, default=datetime.utcnow)
+    is_resolved = db.Column(db.Boolean, default=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User',
@@ -102,3 +86,6 @@ class Issue(db.Model):
     department = db.relationship('Department',
                                  backref=db.backref('departments',
                                                     lazy='dynamic'))
+
+    def __repr__(self):
+        return '<Issue Subject: %r>' % self.subject
