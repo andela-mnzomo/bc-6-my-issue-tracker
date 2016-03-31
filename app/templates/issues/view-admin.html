@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+
+<div class="main">
+  
+  <div class="main-inner">
+
+      <div class="container">
+  
+      <div class="row">
+      <div class="span12">
+            
+        <div class="widget widget-plain">
+          
+          <div class="widget-content">
+            
+            <a class="btn btn-large btn-primary btn-support-ask"> <i class="icon-list" style="margin-right: 10px"></i>{{ title }}</a> 
+            
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+        
+      </div> <!-- /span12 -->
+     </div> 
+            {% if issues %}
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th width="10%"> Date Raised </th>
+                    <th width="12%"> Person </th>
+                    <th width="15%"> Subject </th>
+                    <th width="28%"> Description </th>
+                    <th width="10%"> Department </th>
+                    <th width="5%"> Priority </th>
+                    <th width="15%"> Resolution </th>
+                    <th width="5%"> Status </th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for issue in issues %}
+                  <tr>
+                    <td> {{ issue.raised_at.strftime('%d-%m-%Y') }} </td>
+                    <td> {{ issue.user.fullname }} </td>
+                    <td> {{ issue.subject }} </td>
+                    <td> {{ issue.description }} </td>
+                    <td> {{ issue.department.name }} </td>
+                    <td> {{ issue.priority }} </td>
+                    <td>
+                      {% if issue.is_resolved == False %}
+                      <a href="{{ url_for('issues.edit', id=issue.id) }}"> Resolve </a>
+                      {% else %}
+                        RESOLVED
+                      {% endif %}
+                    </td>
+                    <td class="td-actions">
+                      {% if issue.is_resolved == False %}
+                      <a class="btn btn-danger btn-small"><i class="btn-icon-only icon-exclamation"> </i></a>
+                      {% else %}
+                        <a class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"></i></a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <div style="text-align: center">
+                <h3> You have no issues. Click below to add one:</h3>
+                <a href="{{ url_for('issues.raise_issue') }}"><button class="button btn btn-primary" style = "margin:0 auto; float: none; margin-top: 20px" >Raise Issue</button><a>
+              </div>
+              {% endif %}
+
+            </div> <!-- /widget -->
+        
+        </div> <!-- /spa12 -->
+
+        </div> <!-- /row -->
+  
+      </div> <!-- /container -->
+    
+  </div> <!-- /main-inner -->
+      
+</div> <!-- /main -->
+{% endblock %}
