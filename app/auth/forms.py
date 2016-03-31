@@ -5,12 +5,11 @@ from ..models import db, User
 
 class SignupForm(Form):
   ''' Form for users to create new account '''
-  firstname = TextField("First name",  [validators.Required("Please enter your first name.")])
-  lastname = TextField("Last name",  [validators.Required("Please enter your last name."), 
+  fullname = TextField("Full Name",  [validators.Required("Please enter your  name.")])
+  username = TextField("Username",  [validators.Required("Please select a username."), 
                                       validators.Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                       'Usernames must have only letters, '
                                       'numbers, dots or underscores')])
-  username = TextField("Username",  [validators.Required("Please select a username.")])
   email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
   password = PasswordField('New Password', [
         validators.Required(),
