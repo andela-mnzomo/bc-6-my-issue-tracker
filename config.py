@@ -20,8 +20,7 @@ class DevelopmentConfig(Config):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     
     # Define database configurations
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
-        os.path.join(BASE_DIR, 'data-dev.sqlite')
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
         
     # Enable protection agains *Cross-site Request Forgery (CSRF)*
     CSRF_ENABLED = True
@@ -32,8 +31,7 @@ class ProductionConfig(Config):
     HOST = '0.0.0.0'
     
     # Define database configurations
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
-        os.path.join(BASE_DIR, 'data-dev.sqlite')
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
         
     # Enable protection agains *Cross-site Request Forgery (CSRF)*
     CSRF_ENABLED = True
