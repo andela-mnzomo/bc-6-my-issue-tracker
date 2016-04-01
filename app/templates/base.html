@@ -50,10 +50,10 @@
     <div class="container">
       {% if current_user.is_authenticated %} 
         <ul class="mainnav">
+          {% if current_user.is_admin == False %}
           <li {%- if request.path == "/dashboard" %} class="active" {% endif %}>
             <a href="{{ url_for('main.dashboard') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
           </li>
-          {% if current_user.is_admin == False %}
           <li {%- if request.path == "/notifications" %} class="active" {% endif %}>
             <a href="#"><i class="icon-bell"></i><span>Notifications</span> </a> 
           </li>
@@ -65,6 +65,9 @@
           </li>
           {% endif %}
           {% if current_user.is_admin == True %}
+          <li {%- if request.path == "/admin/dashboard" %} class="active" {% endif %}>
+            <a href="{{ url_for('main.admin_dashboard') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
+          </li>
           <li {%- if request.path == "/issues/admin/view" %} class="active" {% endif %}>
             <a href="{{ url_for('issues.admin_view') }}"><i class="icon-list"></i><span>Issues Raised</span> </a>
           </li>
