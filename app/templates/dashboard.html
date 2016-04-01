@@ -31,16 +31,28 @@
                   <h2 class="bigstats" style="text-align:center; margin-top:50px; margin-bottom:100px; color:#40BFCE">Welcome to Issue Tracker, where your issues are on track.</h2>
 
                   <div id="big_stats" class="cf">
-                    <div class="stat"> <i class="icon-exclamation"></i> <span class="value">30</span> 
-                    <br/> issues raised</div>
+                    <div class="stat"> <i class="icon-exclamation"></i> <span class="value">{{ counts["issue_count"] }}</span> 
+                    {% if counts["issue_count"] == 1%}
+                      <br/> issue raised</div>
+                    {% else %}
+                      <br/> issues raised</div>
+                    {% endif %}
                     <!-- .stat -->
                     
-                    <div class="stat"> <i class="icon-check"></i> <span class="value">28</span>
-                    <br/> issues resolved</div>
+                    <div class="stat"> <i class="icon-check"></i> <span class="value">{{ counts["resolved_issues"] }}</span>
+                    {% if counts["resolved_issues"] == 1%}
+                      <br/> issue resolved</div>
+                    {% else %}
+                      <br/> issues resolved</div>
+                    {% endif %}
                     <!-- .stat -->
                     
-                    <div class="stat"> <i class="icon-refresh"></i> <span class="value">2</span>
-                    <br/> issues in progress</div>
+                    <div class="stat"> <i class="icon-refresh"></i> <span class="value">{{ counts["issues_in_progress"] }}</span>
+                    {% if counts["issues_in_progress"] == 1%}
+                      <br/> issue in progress</div>
+                    {% else %}
+                      <br/> issues resolved</div>
+                    {% endif %}
                     <!-- .stat -->
                     
                     <div class="stat"> <i class="icon-bell"></i> <span class="value">3</span>
