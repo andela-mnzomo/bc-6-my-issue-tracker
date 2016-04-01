@@ -24,7 +24,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="index.html"><img src="{{ url_for('static', filename='img/logo-transp.png') }}" width="300px"></a>
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="{{ url_for('main.welcome') }}"><img src="{{ url_for('static', filename='img/logo-transp.png') }}" width="250px"></a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
           <li class="dropdown">
@@ -53,9 +53,6 @@
           {% if current_user.is_admin == False %}
           <li {%- if request.path == "/dashboard" %} class="active" {% endif %}>
             <a href="{{ url_for('main.dashboard') }}"><i class="icon-dashboard"></i><span>Dashboard</span> </a> 
-          </li>
-          <li {%- if request.path == "/notifications" %} class="active" {% endif %}>
-            <a href="#"><i class="icon-bell"></i><span>Notifications</span> </a> 
           </li>
           <li {%- if request.path == "/issues/raise" %} class="active" {% endif %}>
             <a href="{{ url_for('issues.raise_issue') }}"><i class="icon-exclamation"></i><span>Raise Issue</span></a>
