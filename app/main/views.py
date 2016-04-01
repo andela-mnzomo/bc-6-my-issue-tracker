@@ -24,6 +24,16 @@ def dashboard():
     counts = dict(issue_count=issue_count, resolved_issues=resolved_issues, issues_in_progress=issues_in_progress)
     return render_template('dashboard.html', counts=counts, title="Dashboard")
 
+@main.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    issue_count = Issue.query.count()
+    resolved_issues = Issue.query.filter(Issue.is_resolved == True).count()
+    issues_in_progress = Issue.query.filter(Issue.is_assigned == True).count()
+
+    counts = dict(issue_count=issue_count, resolved_issues=resolved_issues, issues_in_progress=issues_in_progress)
+    return render_template('admin_dashboard.html', counts=counts, title="Dashboard")
+
 
 
 
