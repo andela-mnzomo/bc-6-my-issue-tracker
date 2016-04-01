@@ -38,3 +38,8 @@ class IssueForm(Form):
           (dept.id, dept.name) for dept in Department.query.all()]
       # self.assigned_user.choices = [
       #     (assigned_user.id, assigned_user.fullname) for user in User.query.all()]
+
+class CommentForm(Form):
+  ''' Form for admins to add comment to issue '''
+  
+  comment = TextField("Add A Comment",  [validators.Required("Please enter a comment name.")])
