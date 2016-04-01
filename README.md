@@ -51,10 +51,12 @@ Administrative users can view all `issues` raised by all users. They can mark is
 
 Admin users can also add `departments`, which are the departments to which issues are assigned (such as Operations, Training, and Human Resources). They can also specify `department heads` for each department. Admin users can `view`, `edit`, and `delete` departments. 
 
-## Recommendations
+## Icebox Features
 
-The following recommendations would improve the application:
+The following are features that I did not implement in the application:
 
+- Notifications: users notified whenever their issue is commented on, marked as resolved, or marked as in-progress
 - Email confirmation as part of the registration process
 - User profiles: capabality for users to add or edit their password, email address, profile picture, and biography
-- Notifications: users notified whenever their issue is commented on, marked as resolved, or marked as in-progress
+
+You can view a complete list of completed and icebox features on the [Trello board](https://trello.com/b/3644sG7S/bc-6-issue-tracker Trello board) for this application.
