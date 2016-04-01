@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="widget widget-plain">
+            <div class="widget-content">
+              <a class="btn btn-large btn-primary btn-support-ask"> <i class="icon-comment" style="margin-right: 10px"></i>{{ title }}</a> 
+            </div>
+          </div>
+          <div style="text-align: center; margin-bottom: 20px" >
+            <h3 style="margin-bottom: 10px"> Issue Name: {{ issue.subject }}</h3>
+            <h4> Raised by: </h4> 
+            <p> {{ issue.user.fullname }} </p>
+            <h4> Description: </h4> 
+            <p> {{ issue.description }} </p>
+          </div>
+        </div>
+        <div class="span6">
+          <!-- /widget -->
+          <div class="widget">
+            <div class="widget-header" style="margin-bottom:20px"> <i class="icon-comment"></i>
+              <h3> Add a comment to the issue "{{ issue.subject }}"</h3>
+            </div>
+            <!-- /widget-header -->
+           {{ utils.flashed_messages() }}
+           <form action="{{ url_for('issues.view_individual', id=issue.id) }}" method="post">
+            
+                <p>Add a comment to this issue:</p>
+                
+                <div class="field">
+                  <input type="text" style="width:60%; height:100px;" id="comment" name="comment" value=""/>
+                </div> <!-- /field -->
+              <div class="login-actions">
+                          
+                <button class="button btn btn-primary btn-large" style="float:none">Submit Comment</button>
+                
+              </div> 
+              {{ form.csrf_token }}
+            </form>
+          <!-- /widget-content -->
+        </div>
+          
+          
+        </div>
+        <!-- /span6 -->
+        <div class="span6">
+          {% if comments %}
+            <!-- /widget -->
+            <div class="widget">
+              <div class="widget-header"> <i class="icon-list"></i>
+                <h3> View Comments </h3>
+              </div>
+              <!-- /widget-header --> 
+              <div class="widget-content">
+                <ul class="messages_layout">
+                {% for comment in comments %}
+                  <li class="from_user left"> 
+                  {% if comment.user.fullname == "Administrator" %}
+                    <a class="avatar"><img src="{{ url_for('static', filename='img/admin-icon.png') }}" width="50px"/></a>
+                  {% else %}
+                    <a class="avatar"><img src="{{ url_for('static', filename='img/user-icon.png') }}" width="50px"/></a>
+                  {% endif %}
+                    <div class="message_wrap"> <span class="arrow"></span>
+                      <div class="info"> <a class="name">{{ comment.user.fullname }} </a>
+                      </div>
+                      <div class="text"> {{ comment.comment }}  </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /widget-content -->
+            </div>
+            <!-- /widget -->
+          {% endif %}
+          </div>
+          
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+
+{% endblock %}
