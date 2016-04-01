@@ -12,12 +12,11 @@ The application is able to:
 - Allow admin users to view all issues
 - Allow admin users to comment on issues
 - Allow admin users to assign issues to another user for resolution
-- Allow admin users to mark issues as resolved or in progress
-- Allow users to receive notifications of any updates made to their issues by the admin
+- Allow admin users to mark issues as resolved (closed) or in-progress
 
 ## Using Issue Tracker
 
-You may view a live demonstration of __Issue Tracker__ on Heroku. You may register a new user account and login with the specified details. You may also login to the administrator account using the following credentials:
+You may view a live demonstration of __Issue Tracker__ on [Heroku](http://my-issuetracker.herokuapp.com/ Issue Tracker on Heroku). To use the app, you will have to register a new user account and login with the specified details. You may also login to the administrator account using the following credentials:
 
 Email: admin@it.com
 Password: cat2016
@@ -44,7 +43,7 @@ To install the app:
 
 __Non-administrative Users__
 
-Non-administrative users must register and login to use the application. Once logged in, they can raise an `issue`. They can `view`, `edit`, and `delete` their issues. They can also receive `notifications` when the status of an issue changes (that is, when it is marked as `in-progress` or `resolved`). The `dashboard` shows a summary of their issues and notifications.
+Non-administrative users must register and login to use the application. Once logged in, they can raise an `issue`. They can `view`, `edit`, and `delete` their issues. The `dashboard` shows a summary of the status of their issues, whether they are `pending`(open), `in-progress` or `resolved`(closed).
 
 __Administrative Users__
 
@@ -58,4 +57,4 @@ The following recommendations would improve the application:
 
 - Email confirmation as part of the registration process
 - User profiles: capabality for users to add or edit their password, email address, profile picture, and biography
-- Pushing of notifications as a popup rather than rendering them in a list on the notifications page
+- Notifications: users notified whenever their issue is commented on, marked as resolved, or marked as in-progress
