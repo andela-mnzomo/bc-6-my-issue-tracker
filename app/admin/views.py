@@ -15,6 +15,7 @@ def add():
 		db.session.add(department)
 		db.session.commit()
 		flash('You have successfully added a new department.')
+		return redirect(url_for('admin.view'))
 	return render_template('admin/add.html', form = form, title = "Add Department")
 
 @admin.route('/view')
@@ -35,7 +36,7 @@ def edit(id):
 		department.user_id = form.dept_admin.data
 		db.session.add(department)
 		db.session.commit()
-		flash('Your department has been updated.')
+		return redirect(url_for('admin.view'))
 	form.name.data = department.name
 	form.dept_admin.data = department.user_id
 	return render_template('admin/edit.html', form=form, title="Edit Department")
@@ -54,6 +55,5 @@ def deleting(id):
 	department = Department.query.get_or_404(id)
 	db.session.delete(department)
 	db.session.commit()
-	flash('Your department has been deleted.')
 	return redirect(url_for('admin.view'))
 	return render_template('admin/delete.html', department=department)
