@@ -18,7 +18,7 @@ def raise_issue():
                     user=current_user._get_current_object())
 		db.session.add(issue)
 		db.session.commit()
-		flash('Thanks! We have recorded your issue.')
+		return redirect(url_for('issues.view'))
 	return render_template('issues/raise.html', form = form, title = "Raise Issue")
 
 @issues.route('/view')
@@ -45,10 +45,9 @@ def edit(id):
 		issue.user=current_user._get_current_object()
 		db.session.add(issue)
 		db.session.commit()
-		flash('Your issue has been updated.')
+		return redirect(url_for('issues.view'))
 	form.description.data = issue.description
 	form.subject.data = issue.subject
-	return redirect(url_for('issues.view'))
 	return render_template('issues/edit.html', form=form, title="Edit Issue")
 
 @issues.route('/delete/<int:id>', methods=['GET', 'POST'])
