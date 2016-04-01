@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, request, url_for, abort
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from datetime import datetime
 from . import issues
-from forms import IssueForm
-from ..models import Issue, User
+from forms import IssueForm, CommentForm
+from ..models import Issue, User, Comment
 from .. import db
 
 @issues.route('/raise', methods=['GET', 'POST'])
@@ -48,6 +48,7 @@ def edit(id):
 		flash('Your issue has been updated.')
 	form.description.data = issue.description
 	form.subject.data = issue.subject
+	return redirect(url_for('issues.view'))
 	return render_template('issues/edit.html', form=form, title="Edit Issue")
 
 @issues.route('/delete/<int:id>', methods=['GET', 'POST'])
@@ -108,6 +109,21 @@ def assigning(id):
 	db.session.commit()
 	return redirect(url_for('issues.admin_view'))
 	return render_template('issues/assign.html', issue=issue)
+
+@issues.route('/admin/view/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_individual(id):
+	form = CommentForm()
+	issue = Issue.query.get_or_404(id)
+	comment = None
+	if form.validate_on_submit():
+		comment = Comment(comment=form.comment.data,
+						   user=current_user._get_current_object())
+		db.session.add(comment)
+		db.session.commit()
+		flash('Thanks! Your comment has been added.')
+	comments = Comment.query.all()
+	return render_template('issues/view-individual.html', form=form, issue=issue, comment=comment, comments=comments, title = "Add A Comment")
 
 
 	
