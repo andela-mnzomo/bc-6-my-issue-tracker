@@ -43,7 +43,4 @@ def create_app(config_name):
     def forbidden(error):
         return render_template('403.html', title="403 Error"), 403
 
-    # with app.app_context():
-    #     db.create_all()
-
     return app
